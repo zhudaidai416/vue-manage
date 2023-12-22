@@ -26,9 +26,6 @@ export default {
       }
       echarts1.setOption(option);
     })
-
-
-
   },
 }
 </script>

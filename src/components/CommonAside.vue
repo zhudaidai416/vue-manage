@@ -1,12 +1,12 @@
 <template>
-  <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+  <el-menu :default-active="$route.name" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
     :collapse="isCollapse" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
     <h3>{{ isCollapse ? '后台' : '通用后台管理系统' }}</h3>
     <el-menu-item @click="clickMenu(item)" v-for="item in noChildren" :key="item.name" :index="item.name">
       <i :class="`el-icon-${item.icon}`"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
-    <el-submenu v-for="item in hasChildren" :key="item.label" index="1">
+    <el-submenu v-for="item in hasChildren" :key="item.label" :index="item.label">
       <template slot="title">
         <i :class="`el-icon-${item.icon}`"></i>
         <span slot="title">{{ item.label }}</span>
@@ -22,49 +22,6 @@
 export default {
   data() {
     return {
-      menuData: [
-        {
-          path: '/',
-          name: 'home',
-          label: '首页',
-          icon: 's-home',
-          url: 'Home/Home'
-        },
-        {
-          path: '/mall',
-          name: 'mall',
-          label: '商品管理',
-          icon: 'video-play',
-          url: 'MallManage/MallManage'
-        },
-        {
-          path: '/user',
-          name: 'user',
-          label: '用户管理',
-          icon: 'user',
-          url: 'UserManage/UserManage'
-        },
-        {
-          label: '其他',
-          icon: 'location',
-          children: [
-            {
-              path: '/page1',
-              name: 'page1',
-              label: '页面1',
-              icon: 'setting',
-              url: 'Other/PageOne'
-            },
-            {
-              path: '/page2',
-              name: 'page2',
-              label: '页面2',
-              icon: 'setting',
-              url: 'Other/PageTwo'
-            }
-          ]
-        }
-      ]
     };
   },
   methods: {
@@ -81,7 +38,7 @@ export default {
       if (this.$route.path !== item.path && !(this.$route.path === '/home' && (item.path === '/'))) {
         this.$router.push(item.path)
       }
-      this.$store.commit('selctMenu',item)
+      this.$store.commit('selectMenu', item)
     }
   },
   computed: {
@@ -95,6 +52,9 @@ export default {
     },
     isCollapse() {
       return this.$store.state.tab.isCollapse
+    },
+    menuData() {
+      return JSON.parse(localStorage.getItem('menuData')) || this.$store.state.tab.menuData
     }
   }
 }
@@ -107,7 +67,7 @@ export default {
 }
 
 .el-menu {
-  height: 100%;
+  height: 100vh;
   border: none;
 
   h3 {

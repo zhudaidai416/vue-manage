@@ -45,4 +45,9 @@ export default {
 .el-header {
   padding: 0;
 }
+
+.el-main {
+  height: 0;
+  flex-grow: 1;
+}
 </style>
