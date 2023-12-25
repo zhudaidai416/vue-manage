@@ -1,13 +1,17 @@
 <template>
   <div class="header">
     <div class="left">
-      <el-button @click="handleMenu" icon="el-icon-menu" size="mini"></el-button>
+      <i :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']" @click="handleMenu"></i>
+      <!-- <el-button @click="handleMenu" icon="el-icon-menu" ></el-button> -->
       <!-- 面包屑 -->
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }"
-          :style="{ '--menu-color': (item.name === $route.name) ? '#fff' : '#666' }">
-          {{ item.label }}
+        <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="{ path: item.path }">
+          {{ item.title }}
         </el-breadcrumb-item>
+        <!-- <el-breadcrumb-item v-for="item in breadcrumbList" :key="item.path" :to="{ path: item.path }"
+          :style="{ '--menu-color': (item.name === $route.name) ? '#fff' : '#666' }">
+          {{ item.title }}
+        </el-breadcrumb-item> -->
       </el-breadcrumb>
     </div>
     <div class="right">
@@ -30,12 +34,34 @@ export default {
   name: 'MallView',
   data() {
     return {
-
+      breadcrumbList: []
+    }
+  },
+  created() {
+    this.caleBreadcrumb() // 初始化渲染面包屑导航
+  },
+  watch: {
+    $route: {
+      immediate: true,  // 刷新页面立即监听
+      handler() {
+        this.caleBreadcrumb()
+      },
     }
   },
   methods: {
     handleMenu() {
       this.$store.commit('collapseMenu')
+    },
+    caleBreadcrumb() {
+      // console.log(this.$route.matched)
+      const temp = []
+      this.$route.matched.forEach((item) => {
+        if (item.meta.title && item.path) {
+          temp.push({ path: item.path, title: item.meta.title })
+        }
+      })
+      // console.log('temp', temp)
+      this.breadcrumbList = temp
     },
     handleCommand(command) {
       if (command === 'logout') {
@@ -44,11 +70,11 @@ export default {
         localStorage.removeItem('menuData')
         this.$router.push('/login')
       }
-    }
+    },
   },
   computed: {
     ...mapState({
-      tags: state => state.tab.selectMenuList
+      isCollapse: state => state.tab.isCollapse
     })
   }
 }
@@ -57,7 +83,8 @@ export default {
 <style lang="less" scoped>
 .header {
   height: 60px;
-  background-color: #333;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,14 +94,20 @@ export default {
     display: flex;
     align-items: center;
 
-    .el-button {
+    .el-icon-s-fold,
+    .el-icon-s-unfold {
+      font-size: 25px;
       margin-right: 20px;
+
+      &:hover {
+        color: #409EFF;
+      }
     }
 
     /deep/.el-breadcrumb__item {
       .el-breadcrumb__inner {
         font-weight: normal;
-        color: var(--menu-color) !important;
+        color: #333;
 
         // &.is-link {
         //   color: #666;

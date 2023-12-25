@@ -59,10 +59,9 @@ export default {
           getMenu(this.loginForm).then(({ data }) => {
             console.log(data)
             if (data.code === 20000) {
+              // 获取菜单数据存入localStorage
               localStorage.setItem('token', data.data.token)
-
-              // 获取菜单数据存入store
-              this.$store.commit('setMenu', data.data.menu)
+              localStorage.setItem('menuData', JSON.stringify(data.data.menu))
               this.$router.push('/home')
               
             } else {

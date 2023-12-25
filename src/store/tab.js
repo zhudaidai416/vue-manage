@@ -5,8 +5,7 @@ export default {
       {
         path: '/',
         name: 'home',
-        label: '首页',
-        icon: 's-home',
+        meta: { title: '首页', icon: 's-home' },
         url: 'Home/Home'
       }
     ],
@@ -25,6 +24,7 @@ export default {
         // 如果不存在
         if (index === -1) {
           state.selectMenuList.push(val)
+          console.log('selectMenuList', state.selectMenuList)
         }
       }
     },
@@ -32,11 +32,6 @@ export default {
     closeTag(state, val) {
       const index = state.selectMenuList.findIndex(item => item.name === val.name)
       state.selectMenuList.splice(index, 1)
-    },
-    // 设置 menu 数据
-    setMenu(state, val) {
-      state.menuData = val
-      localStorage.setItem('menuData', JSON.stringify(val))
     },
     // 动态路由
     dynamicRoute(state, router) {
@@ -48,18 +43,18 @@ export default {
       const menuArray = []
       menuData.forEach(item => {
         if (item.children) {
+          item.component = () => import(`../views/RouterView.vue`)
           item.children = item.children.map((i) => {
             i.component = () => import(`../views/${i.url}`)
             return i
           })
-          menuArray.push(...item.children)
+          menuArray.push(item)
         } else {
           item.component = () => import(`../views/${item.url}`)
           menuArray.push(item)
         }
-        console.log('menuArray',menuArray)
       })
-
+      console.log('menuArray', menuArray)
       // 路由动态添加
       menuArray.forEach(item => {
         router.addRoute('main', item)

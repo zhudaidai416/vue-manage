@@ -12,41 +12,56 @@ export default {
             {
               path: '/home',
               name: 'home',
-              label: '首页',
-              icon: 's-home',
+              meta: { title: '首页', icon: 's-home' },
               url: 'Home.vue'
             },
             {
               path: '/mall',
               name: 'mall',
-              label: '商品管理',
-              icon: 'video-play',
+              meta: { title: '商品管理', icon: 'shopping-bag-2' },
               url: 'Mall.vue'
+            },
+            {
+              path: '/echarts',
+              name: 'echarts',
+              meta: { title: 'Echarts', icon: 'data-line' },
+              children: [
+                {
+                  path: '/echarts/page1',
+                  name: 'echarts/page1',
+                  meta: { title: '图表1' },
+                  url: 'Echarts/EchartsOne.vue'
+                },
+                {
+                  path: '/echarts/page2',
+                  name: 'echarts/epage2',
+                  meta: { title: '图表2' },
+                  url: 'Echarts/EchartsTwo.vue'
+                }
+              ]
             },
             {
               path: '/user',
               name: 'user',
-              label: '用户管理',
-              icon: 'user',
+              meta: { title: '用户管理', icon: 'user' },
               url: 'User.vue'
             },
             {
-              label: '其他',
-              icon: 'location',
+              path: '/others',
+              name: 'others',
+              meta: { title: '其他', icon: 'cloudy' },
               children: [
                 {
-                  path: '/page1',
-                  name: 'page1',
-                  label: '页面1',
-                  icon: 'setting',
-                  url: 'PageOne.vue'
+                  path: '/others/page1',
+                  name: 'others/page1',
+                  meta: { title: '页面1' },
+                  url: 'Others/PageOne.vue'
                 },
                 {
-                  path: '/page2',
-                  name: 'page2',
-                  label: '页面2',
-                  icon: 'setting',
-                  url: 'PageTwo.vue'
+                  path: '/others/page2',
+                  name: 'others/page2',
+                  meta: { title: '页面2' },
+                  url: 'Others/PageTwo.vue'
                 }
               ]
             }
@@ -63,15 +78,13 @@ export default {
             {
               path: '/home',
               name: 'home',
-              label: '首页',
-              icon: 's-home',
+              meta: { title: '首页', icon: 's-home' },
               url: 'Home.vue'
             },
             {
               path: '/mall',
               name: 'mall',
-              label: '商品管理',
-              icon: 'video-play',
+              meta: { title: '商品管理', icon: 'video-play' },
               url: 'Mall.vue'
             }
           ],
@@ -87,6 +100,5 @@ export default {
         }
       }
     }
-
   }
 }

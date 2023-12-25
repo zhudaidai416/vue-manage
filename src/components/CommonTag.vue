@@ -3,7 +3,7 @@
     <el-tag v-for="(item, index) in tags" :key="item.path" :closable="item.name !== 'home'"
       :effect="$route.name === item.name ? 'dark' : 'plain'" @click="changePage(item)" @close="closePage(item, index)"
       size="small">
-      {{ item.label }}
+      {{ item.meta.title }}
     </el-tag>
   </div>
 </template>
@@ -54,10 +54,15 @@ export default {
 
 <style lang="less" scoped>
 .tag {
-  padding: 20px;
+  padding: 10px 20px 0 20px;
+  border-bottom: 1px solid #eee;
 
   .el-tag {
-    margin-right: 15px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+    border-radius: 5px 5px 0 0;
+    border-bottom: none;
     cursor: pointer;
   }
 }

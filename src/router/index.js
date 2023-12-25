@@ -17,30 +17,61 @@ const routes = [
     children: [
       // 子路由
       // {
-      //   path: 'home',
+      //   path: '/home',
       //   name: 'home',
-      //   component: Home
+      //   meta: { title: '首页', icon: 's-home' },
+      //   component: () => import('../views/Home.vue')
       // },
       // {
-      //   path: 'user',
+      //   path: '/user',
       //   name: 'user',
-      //   component: User
+      //   meta: { title: '用户管理', icon: 'user' },
+      //   component: () => import('../views/User.vue')
+      // },
+      // {
+      //   path: '/echarts',
+      //   name: 'echarts',
+      //   meta: { title: 'Echarts', icon: 'location' },
+      //   children: [
+      //     {
+      //       path: '/echarts/page1',
+      //       name: 'echarts/page1',
+      //       meta: { title: '图表1' },
+      //       component: () => import('../views/Echarts/EchartsOne.vue')
+      //     },
+      //     {
+      //       path: '/echarts/page2',
+      //       name: 'echarts/page2',
+      //       meta: { title: '图表2' },
+      //       component: () => import('../views/Echarts/EchartsTwo.vue')
+      //     }
+      //   ]
       // },
       // {
       //   path: 'mall',
       //   name: 'mall',
+      //   meta: { title: '商品管理', icon: 'video-play' },
       //   component: () => import('../views/Mall.vue')
       // },
       // {
-      //   path: 'page1',
-      //   name: 'page1',
-      //   component: () => import('../views/PageOne.vue')
-      // },
-      // {
-      //   path: 'page2',
-      //   name: 'page2',
-      //   component: () => import('../views/PageTwo.vue')
-      // },
+      //   path: '/others',
+      //   name: 'others',
+      //   meta: { title: '其他', icon: 'location' },
+      //   children: [
+      //     {
+      //       path: '/others/page1',
+      //       name: 'others/page1',
+      //       meta: { title: '页面1' },
+      //       component: () => import('../views/Others/PageOne.vue')
+      //     },
+      //     {
+      //       path: '/others/page2',
+      //       name: 'others/page2',
+      //       meta: { title: '页面2' },
+      //       component: () => import('../views/Others/PageTwo.vue')
+      //     }
+      //   ]
+      // }
     ],
   },
   {

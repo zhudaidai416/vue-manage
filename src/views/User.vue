@@ -30,7 +30,10 @@
     </el-dialog>
 
     <div class="header">
-      <el-button type="primary" @click="add">+ 新增</el-button>
+      <div>
+        <el-button type="primary" @click="add">新增</el-button>
+        <el-button type="primary" @click="exportExcel">导出</el-button>
+      </div>
       <el-form :inline="true" :model="userForm">
         <el-form-item>
           <el-input v-model="userForm.name" placeholder="请输入姓名"></el-input>
@@ -42,7 +45,9 @@
     </div>
 
     <!-- 表格数据 -->
-    <el-table :data="tableData" height="90%" style="width: 100%" stripe>
+    <el-table :data="tableData" height="90%" style="width: 100%" stripe @selection-change="selectionChange">
+      <el-table-column type="selection" width="55">
+      </el-table-column>
       <el-table-column prop="name" label="姓名" width="120">
       </el-table-column>
       <el-table-column prop="sex" label="性别" width="120">
@@ -71,6 +76,7 @@
 
 <script>
 import { getUser, addUser, editUser, delUser } from '../api'
+import excel from '../utils/excel'
 export default {
   name: 'UserView',
   data() {
@@ -110,7 +116,8 @@ export default {
       },
       userForm: {
         name: ''
-      }
+      },
+      multipleSelection: []
     }
   },
   mounted() {
@@ -133,10 +140,10 @@ export default {
     submit() {
       // 提交表单
       this.$refs.form.validate((valid) => {
-        console.log(valid)
+        // console.log(valid)
         if (valid) {
           // 表单通过校验之后的处理
-          console.log('表单数据', this.form)
+          // console.log('表单数据', this.form)
           if (this.dialogType === 0) {
             addUser(this.form).then(() => {
               // 重新获取列表接口
@@ -205,8 +212,22 @@ export default {
     // 搜索
     search() {
       this.getList()
+    },
+    selectionChange(val) {
+      // console.log('multipleSelection', val)
+      this.multipleSelection = val
+    },
+    exportExcel() {
+      const params = {
+        title: ['姓名', '性别', '年龄', '出生日期', '地址'],
+        key: Object.keys(this.form),
+        data: this.multipleSelection, // 数据源
+        autoWidth: true, //autoWidth等于true，那么列的宽度会适应那一列最长的值
+        filename: '用户管理'
+      }
+      excel.exportArrayToExcel(params)
     }
-  },
+  }
 }
 </script>
 
@@ -223,6 +244,7 @@ export default {
   .el-pagination {
     margin-top: 15px;
     text-align: right;
+    // background-color: #F5F5F5;
   }
 }
 </style>

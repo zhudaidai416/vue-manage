@@ -49,5 +49,6 @@ export default {
 .el-main {
   height: 0;
   flex-grow: 1;
+  background-color: #F5F5F5;
 }
 </style>
