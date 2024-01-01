@@ -127,7 +127,7 @@ export default {
     // 获取列表数据
     getList() {
       getUser({ ...this.userForm, ...this.pageData }).then(({ data }) => {
-        // console.log(data)
+        console.log(data)
         this.tableData = data.list
         this.total = data.count || 0
       })
