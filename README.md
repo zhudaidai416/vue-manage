@@ -6,18 +6,21 @@
 
 ## 环境依赖
 
-```
+```bash
 yarn install
 ```
 
 ## 运行
-```
+
+```bash
 yarn serve
 ```
 
+账号密码在文件 `api\mockServeData\permission.js` 下
+
 ## 打包
 
-```
+```bash
 yarn build
 ```
 
